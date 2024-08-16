@@ -44,7 +44,7 @@ workflows:
           - ACCESS_TOKEN: $GITHUB_ACCESS_TOKEN
           - STATUS: success
           - REPO_NAME: bitrise-test
-          - REPO_OWNER: effektsvk
+          - REPO_OWNER: technology-studio
     #- script:
     #    inputs:
     #    - content: |
