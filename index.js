@@ -54,7 +54,7 @@ const api = ky.create({
     await api.post(`repos/${OWNER}/${REPO}/statuses/${COMMIT_SHA}`, {
       json: {
         target_url: BUILD_URL,
-        CONTEXT,
+        context: CONTEXT,
         state,
         description,
       },
