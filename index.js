@@ -49,7 +49,7 @@ const api = ky.create({
         ? 'The build is pending'
         : 'The build failed';
 
-  console.log(`Updating status for ${COMMIT_SHA} to ${state} with description ${description}...`);
+  console.log(`Updating status for commit ${COMMIT_SHA} to ${state} with description "${description}" and context "${CONTEXT}"...`);
   try {
     await api.post(`repos/${OWNER}/${REPO}/statuses/${COMMIT_SHA}`, {
       json: {
