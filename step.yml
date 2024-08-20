@@ -97,7 +97,7 @@ inputs:
       value_options:
         - "ios"
         - "android"
-  - CONTEXT: ci/bitrise/$BITRISE_BUILD_NUMBER
+  - CONTEXT: ci/bitrise/$APP_PLATFORM/$BITRISE_BUILD_NUMBER
     opts:
       title: "Context"
       summary: Context to use for the status
