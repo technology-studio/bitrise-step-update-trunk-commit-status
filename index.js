@@ -56,6 +56,5 @@ const api = ky.create({
   } catch (error) {
     console.error("Failed to update status");
     console.error(error);
-    process.exit(1);
   }
 })();
