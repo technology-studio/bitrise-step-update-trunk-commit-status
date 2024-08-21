@@ -6,6 +6,7 @@ const COMMIT_SHA = process.env.COMMIT_SHA;
 const REPO = process.env.REPO_SLUG;
 const OWNER = process.env.REPO_OWNER;
 const BITRISE_STATUS = process.env.BITRISE_BUILD_STATUS;
+const BITRISE_BUILD_NUMBER = process.env.BITRISE_BUILD_NUMBER;
 const IS_PENDING = process.env.IS_PENDING;
 const BUILD_URL = process.env.BITRISE_BUILD_URL;
 const IS_BUILD_FAILED = process.env.IS_BUILD_FAILED;
@@ -35,12 +36,12 @@ const api = ky.create({
       : "success"
     : "failure";
   const description = state === "success"
-    ? 'The build succeeded'
+    ? `The build succeeded (${BITRISE_BUILD_NUMBER})`
     : state === "failure"
-      ? 'The build failed'
+      ? `The build failed (${BITRISE_BUILD_NUMBER})`
       : state === "pending"
-        ? 'The build is pending'
-        : 'The build failed';
+        ? `The build is pending (${BITRISE_BUILD_NUMBER})`
+        : `The build failed (${BITRISE_BUILD_NUMBER})`;
 
   console.log(`Updating status for commit ${COMMIT_SHA} to ${state} with description "${description}" and context "${CONTEXT}"...`);
   try {
