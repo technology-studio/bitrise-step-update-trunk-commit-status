@@ -36,12 +36,12 @@ const api = ky.create({
       : "success"
     : "failure";
   const description = state === "success"
-    ? `The build succeeded for build ${BITRISE_BUILD_NUMBER}`
+    ? `The build succeeded (${BITRISE_BUILD_NUMBER})`
     : state === "failure"
-      ? `The build failed for build ${BITRISE_BUILD_NUMBER}`
+      ? `The build failed (${BITRISE_BUILD_NUMBER})`
       : state === "pending"
-        ? `The build is pending for build ${BITRISE_BUILD_NUMBER}`
-        : `The build failed for build ${BITRISE_BUILD_NUMBER}`;
+        ? `The build is pending (${BITRISE_BUILD_NUMBER})`
+        : `The build failed (${BITRISE_BUILD_NUMBER})`;
 
   console.log(`Updating status for commit ${COMMIT_SHA} to ${state} with description "${description}" and context "${CONTEXT}"...`);
   try {
