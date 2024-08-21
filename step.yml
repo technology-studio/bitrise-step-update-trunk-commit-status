@@ -95,9 +95,9 @@ inputs:
       summary: Platform of the app
       is_required: true
       value_options:
-        - "ios"
-        - "android"
-  - CONTEXT: ci/bitrise/$APP_PLATFORM/$BITRISE_BUILD_NUMBER
+        - "iOS"
+        - "Android"
+  - CONTEXT: "Build health / $APP_PLATFORM"
     opts:
       title: "Context"
       summary: Context to use for the status
