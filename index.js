@@ -63,6 +63,7 @@ const api = ky.create({
   } catch (error) {
     console.error("Failed to update status");
     console.error(error);
+    process.exit(1);
   }
 
   if (state === "success" && IS_PENDING === "no") {
@@ -72,7 +73,7 @@ const api = ky.create({
       return;
     }
     const releaseCandidateTagName = `release-candidate/${PLATFORM}/${appVersion}-${BUILD_NUMBER}`;
-    console.log(`Adding "release-candidate" tag to ${COMMIT_SHA}...`);
+    console.log(`Adding "${releaseCandidateTagName}" tag to ${COMMIT_SHA}...`);
     try {
       const tagResponse = await api.post(`repos/${OWNER}/${REPO}/git/tags`, {
         json: {
@@ -91,6 +92,24 @@ const api = ky.create({
       });
     } catch (error) {
       console.error("Failed to create or add release-candidate tag");
+      process.exit(1);
+    }
+
+    const deliveredReleaseCandidateBranchName = `release-candidate/${PLATFORM}/delivered`;
+    console.log(`Setting "${deliveredReleaseCandidateBranchName}" branch to ${COMMIT_SHA}...`);
+    try {
+      const branchExists = execSync(`git show-ref refs/heads/${deliveredReleaseCandidateBranchName}`).toString().trim() !== "";
+      if (!branchExists) {
+        console.log(`Creating "${deliveredReleaseCandidateBranchName}" branch...`);
+        execSync(`git branch ${deliveredReleaseCandidateBranchName} ${COMMIT_SHA}`);
+      } else {
+        console.log(`Updating "${deliveredReleaseCandidateBranchName}" branch...`);
+        execSync(`git update-ref refs/heads/${deliveredReleaseCandidateBranchName} ${COMMIT_SHA}`);
+      }
+      execSync(`git push origin ${deliveredReleaseCandidateBranchName}`);
+    } catch (error) {
+      console.error("Failed to update delivered release-candidate branch");
+      process.exit(1);
     }
   }
 })();
