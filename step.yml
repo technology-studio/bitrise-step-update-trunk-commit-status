@@ -97,7 +97,7 @@ inputs:
       value_options:
         - "iOS"
         - "Android"
-  - CONTEXT: "Build health / $APP_PLATFORM"
+  - CONTEXT: "App health / $APP_PLATFORM"
     opts:
       title: "Context"
       summary: Context to use for the status
